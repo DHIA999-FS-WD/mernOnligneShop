@@ -1,9 +1,11 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import products from "../../data";
+// import products from "../../data";
 import { useEffect, useContext } from "react";
-import { CartContext } from "../../App";
+import { CartContext, ProductsContext } from "../../App";
+
 const Products = () => {
+  const { products } = useContext(ProductsContext);
   const {
     cart = [],
     setCart,
@@ -14,7 +16,7 @@ const Products = () => {
   const addToCart = (p) => {
     const data = [...cart];
 
-    const existingProduct = data.find((item) => item.id === p.id);
+    const existingProduct = data.find((item) => item.id === p._id);
 
     if (existingProduct) {
       // increment its count by 1 if the product already exists in the cart
@@ -22,7 +24,7 @@ const Products = () => {
     } else {
       // if the product doesn't exist add it to the cart with count 1
       const product = {
-        id: p.id,
+        id: p._id,
         count: 1,
         img: p.img,
         title: p.title,
@@ -41,7 +43,7 @@ const Products = () => {
   return (
     <div className="d-flex   align-items-center justify-content-center flex-wrap ">
       {products.map((item) => (
-        <Card key={item.id} style={{ width: "18rem" }} className="me-3">
+        <Card key={item._id} style={{ width: "18rem" }} className="me-3">
           <Card.Img variant="top" src={item.img} />
           <Card.Body>
             <Card.Title>{item.title}</Card.Title>

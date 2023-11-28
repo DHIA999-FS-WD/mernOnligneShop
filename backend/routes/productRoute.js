@@ -14,7 +14,7 @@ const protect = require("../middlewares/authMiddleware");
 // POST :  ADD A NEW Product TO THE DATABASE
 router.post("/add", protect, createProduct);
 //   GET :  RETURN ALL Product
-router.get("/all", protect, getProducts);
+router.get("/all", getProducts);
 //   GET :  RETURN ONE Product BY ID
 router.get("/:id", protect, getProduct);
 //   delete :  delete ONE Product BY ID

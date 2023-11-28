@@ -9,7 +9,8 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import ProductsPage from "./pages/ProductsPage";
 
 // context
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import axios from "axios";
 
 export const CartContext = createContext({
   cart: [],
@@ -21,28 +22,47 @@ export const UserContext = createContext({
   user: {},
   setUser: () => {},
 });
+export const ProductsContext = createContext({
+  products: [],
+});
 
 function App() {
   const [cart, setCart] = useState([]);
   const [countProduct, setCountProduct] = useState(0);
   const [user, setUser] = useState({});
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/api/product/all")
+      .then((result) => {
+        console.log(result.data);
+        setProducts(result.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <>
-      <UserContext.Provider value={{ user, setUser }}>
-        <CartContext.Provider
-          value={{ cart, setCart, countProduct, setCountProduct }}
-        >
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<ProductsPage />} />
-            <Route path="/aboutUs" element={<About />} />
-            <Route path="/contactUs" element={<ContactUs />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/cart" element={<Cart />} />
-          </Routes>
-        </CartContext.Provider>
-      </UserContext.Provider>
+      <ProductsContext.Provider value={{ products }}>
+        <UserContext.Provider value={{ user, setUser }}>
+          <CartContext.Provider
+            value={{ cart, setCart, countProduct, setCountProduct }}
+          >
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/products" element={<ProductsPage />} />
+              <Route path="/aboutUs" element={<About />} />
+              <Route path="/contactUs" element={<ContactUs />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/cart" element={<Cart />} />
+            </Routes>
+          </CartContext.Provider>
+        </UserContext.Provider>
+        *
+      </ProductsContext.Provider>
     </>
   );
 }
