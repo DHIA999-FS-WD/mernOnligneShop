@@ -9,17 +9,17 @@ const {
 
 const router = express.Router();
 
-const protect = require("../middlewares/authMiddleware");
+// const protect = require("../middlewares/authMiddleware");
 
 // POST :  ADD A NEW Product TO THE DATABASE
-router.post("/add", protect, createProduct);
+router.post("/add", createProduct);
 //   GET :  RETURN ALL Product
 router.get("/all", getProducts);
 //   GET :  RETURN ONE Product BY ID
-router.get("/:id", protect, getProduct);
+router.get("/:id", getProduct);
 //   delete :  delete ONE Product BY ID
-router.delete("/:id", protect, deleteProduct);
+router.delete("/:id", deleteProduct);
 //  PUT : EDIT AND UPDATE A Product BY ID
-router.put("/:_id", protect, updateProduct);
+router.put("/:_id", updateProduct);
 
 module.exports = router;

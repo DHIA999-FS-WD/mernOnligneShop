@@ -31,7 +31,7 @@ const getUsers = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     const userId = req.params.id;
-    const user = await User.findById(userId);
+    const user = await User.findOne(userId);
     res.json(user);
   } catch (error) {
     console.log("errr", error);
@@ -82,13 +82,14 @@ const loginUser = async (req, res) => {
           name: user.name,
           email: user.email,
           token: generateToken(user._id),
+          role: user.role,
         });
       } else {
-        res.status(401).json("info not correct");
+        res.status(401).json({ message: "not found" });
       }
     });
   } catch (error) {
-    res.send({ err: error.message });
+    res.status(400).send({ err: error.message });
   }
 };
 module.exports = {

@@ -1,14 +1,18 @@
 import Header from "./../../components/Header";
-
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../App";
+import axios from "axios";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { user, setUser } = useContext(UserContext);
 
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (email === "") {
       return alert("enter email");
@@ -19,18 +23,31 @@ const Login = () => {
     if (password.length < 8) {
       return alert("password length must be < 8");
     }
-    const NewUser = {
-      email,
-      password,
-    };
+    try {
+      const res = await axios.post("http://localhost:4000/api/user/login", {
+        email,
+        password,
+      });
+      if (res && res.data) {
+        setUser({
+          name: res.data.name,
+          token: res.data.token,
+          role: res.data.role,
+        });
+        alert("login correct");
 
-    return setUser(NewUser);
-    // alert(
-    //   `The name you entered was: ${email} and The password you entered was: ${password}`
-    // );
+        return console.log(user);
+      }
+    } catch (error) {
+      console.log(error);
+      alert("user not found");
+      navigate("/register");
+    }
   };
+
   useEffect(() => {
-    console.log(user);
+    console.log("lest", user);
+    localStorage.setItem("auth", JSON.stringify(user));
   }, [user]);
 
   return (

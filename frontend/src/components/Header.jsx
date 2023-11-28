@@ -1,16 +1,31 @@
 import { FiShoppingBag } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { BsCart4 } from "react-icons/bs";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext, CartContext } from "../App";
-
 const Header = () => {
   const { countProduct } = useContext(CartContext);
   const { user, setUser } = useContext(UserContext);
+  const [newUser, setNewName] = useState("");
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    const data = localStorage.getItem("auth");
+    if (data) {
+      const parseData = JSON.parse(data);
+      setNewName(parseData);
+    }
+  }, []);
+  const handleLogout = () => {
+    // Clear user data and reload the page
+    setUser({});
+    localStorage.removeItem("auth");
+    navigate("/");
+    window.location.reload();
+  };
   return (
     <>
       <Navbar
@@ -52,20 +67,37 @@ const Header = () => {
               >
                 Contact Us
               </Link>
-
-              <Link className="me-2 link-light text-decoration-none" to="/cart">
-                <BsCart4 />({countProduct})
-              </Link>
+              {Object.keys(newUser).length !== 0 &&
+              newUser.role !== 0 &&
+              newUser.token != "" ? (
+                <>
+                  <Link
+                    className="me-2 link-light text-decoration-none"
+                    to="/admin"
+                  >
+                    Admin
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    className="me-2 link-light text-decoration-none"
+                    to="/cart"
+                  >
+                    <BsCart4 />({countProduct})
+                  </Link>
+                </>
+              )}
             </Nav>
             <Nav>
               {Object.keys(user).length !== 0 ? (
                 <>
                   <div className="me-3 link-light text-decoration-none">
-                    {user.email}
+                    {newUser.name}
                   </div>
                   <div
                     className="me-3 link-light text-decoration-none"
-                    onClick={() => setUser({})}
+                    onClick={handleLogout}
                     style={{ cursor: "pointer" }}
                   >
                     Logout

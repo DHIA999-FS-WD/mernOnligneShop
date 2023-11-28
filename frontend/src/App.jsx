@@ -11,6 +11,7 @@ import ProductsPage from "./pages/ProductsPage";
 // context
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import AdminPage from "./pages/Admin/AdminPage";
 
 export const CartContext = createContext({
   cart: [],
@@ -30,6 +31,7 @@ function App() {
   const [cart, setCart] = useState([]);
   const [countProduct, setCountProduct] = useState(0);
   const [user, setUser] = useState({});
+
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -45,7 +47,7 @@ function App() {
   }, []);
   return (
     <>
-      <ProductsContext.Provider value={{ products }}>
+      <ProductsContext.Provider value={{ products, setProducts }}>
         <UserContext.Provider value={{ user, setUser }}>
           <CartContext.Provider
             value={{ cart, setCart, countProduct, setCountProduct }}
@@ -58,10 +60,10 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/admin" element={<AdminPage />} />
             </Routes>
           </CartContext.Provider>
         </UserContext.Provider>
-        *
       </ProductsContext.Provider>
     </>
   );

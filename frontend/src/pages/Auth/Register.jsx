@@ -1,16 +1,18 @@
+import axios from "axios";
 import { UserContext } from "../../App";
 import Header from "./../../components/Header";
 import { useState, useEffect } from "react";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
-  const { user, setUser } = useContext(UserContext);
-
-  const handleSubmit = (event) => {
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (name === "") {
       return alert("enter name");
@@ -35,8 +37,19 @@ const Register = () => {
       email,
       password,
     };
+    try {
+      const res = await axios.post(
+        "http://localhost:4000/api/user/add",
+        NewUser
+      );
+      if (res && res.data) {
+        alert("register is correct");
+      }
+    } catch (error) {
+      console.log(error);
+    }
 
-    return setUser(NewUser);
+    return navigate("/login");
 
     // alert(
     //   `The name you entered was: ${name} ///
