@@ -1,0 +1,16 @@
+{
+  "name": "ecomercemern",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"cd ./backend && npm run start\" \"cd ./frontend && npm run dev\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "slugify": "^1.6.6"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "description": ""
+}
