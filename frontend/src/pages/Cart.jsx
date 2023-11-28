@@ -119,6 +119,11 @@ const Cart = () => {
             </tbody>
           </table>
           <div>Total Value: {totalValue}</div>
+          <div>
+            <button onClick={() => alert(`we need ${totalValue} from u`)}>
+              Buy
+            </button>
+          </div>
         </div>
       </div>
     </div>
