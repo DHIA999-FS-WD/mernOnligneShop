@@ -12,7 +12,8 @@ const Home = () => {
           //  background: "red"
         }}
       >
-        <h1>homepage</h1>
+        <h1>Welcome</h1>
+        <img className="homeImg" src="/public/images/home.jpg" alt="" />
         <h2>Products</h2>
         <Products />
       </div>
