@@ -10,9 +10,7 @@ const productRoute = require("./routes/productRoute");
 app.use(express.json());
 app.use(
   cors({
-    origin: [
-      "https://mern-onligne-shop-a8tw-j43soujp1-dhia-eddine-bouzaines-projects.vercel.app",
-    ],
+    origin: ["mern-onligne-shop-a8tw.vercel.app"],
     methods: ["POST", "GET", "DELETE", "PUT"],
     credentials: true,
   })
