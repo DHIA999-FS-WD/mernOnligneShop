@@ -24,10 +24,13 @@ const Login = () => {
       return alert("password length must be < 8");
     }
     try {
-      const res = await axios.post("http://localhost:4000/api/user/login", {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        "https://mern-onligne-shop.vercel.app/api/user/login",
+        {
+          email,
+          password,
+        }
+      );
       if (res && res.data) {
         setUser({
           name: res.data.name,
