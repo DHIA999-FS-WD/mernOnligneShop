@@ -7,7 +7,7 @@ const protect = (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     try {
-      const decoded = jwt.verify(token, process.env.JWT);
+      const decoded = jwt.verify(token, "dhia123");
       console.log("decoded", decoded);
       next();
     } catch (error) {
