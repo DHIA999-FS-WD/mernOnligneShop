@@ -10,12 +10,11 @@ const productRoute = require("./routes/productRoute");
 app.use(express.json());
 app.use(
   cors({
-    origin: ["mern-onligne-shop-a8tw.vercel.app"],
+    origin: ["http://localhost:5173"],
     methods: ["POST", "GET", "DELETE", "PUT"],
     credentials: true,
   })
 );
-
 const PORT = process.env.PORT || 4000;
 connectDB();
 //routes

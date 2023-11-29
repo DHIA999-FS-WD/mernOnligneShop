@@ -36,7 +36,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("mern-onligne-shop-api.vercel.app/api/product/all")
+      .get("http://localhost:4000/api/product/all")
       .then((result) => {
         console.log(result.data);
         setProducts(result.data);

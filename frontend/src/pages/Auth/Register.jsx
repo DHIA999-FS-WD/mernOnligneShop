@@ -39,7 +39,7 @@ const Register = () => {
     };
     try {
       const res = await axios.post(
-        "mern-onligne-shop-api.vercel.app/api/user/add",
+        "http://localhost:4000/api/user/add",
         NewUser
       );
       if (res && res.data) {
