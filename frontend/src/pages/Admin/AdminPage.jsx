@@ -28,7 +28,7 @@ const AdminPage = () => {
 
   const addItem = (newItem) => {
     axios
-      .post("http://localhost:4000/api/product/add", newItem)
+      .post("mern-onligne-shop-api.vercel.app/api/product/add", newItem)
       .then((response) => {
         const newProducts = [...products, response.data];
         setProducts(newProducts);
@@ -39,7 +39,7 @@ const AdminPage = () => {
   };
   const deleteItem = (id) => {
     axios
-      .delete("http://localhost:4000/api/product/" + id)
+      .delete("mern-onligne-shop-api.vercel.app/api/product/" + id)
       .then(() => {
         // Remove the deleted item from the products context
         const filteredProducts = products.filter((item) => item._id !== id);

@@ -25,7 +25,7 @@ const Login = () => {
     }
     try {
       const res = await axios.post(
-        "https://mern-onligne-shop.vercel.app/api/user/login",
+        "mern-onligne-shop-api.vercel.app/api/user/login",
         {
           email,
           password,
