@@ -15,6 +15,9 @@ app.use(
     credentials: true,
   })
 );
+app.get("/", (req, res) => {
+  res.json("hello");
+});
 const PORT = process.env.PORT || 4000;
 connectDB();
 //routes
